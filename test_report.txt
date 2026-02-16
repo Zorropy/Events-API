@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.10.11, pytest-8.4.1, pluggy-1.6.0 -- /Library/Frameworks/Python.framework/Versions/3.10/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/youssefelmaach/Documents/PycharmProjects/PythonProject/Events-API
+collecting ... collected 11 items
+
+tests/test_api.py::test_health_endpoint PASSED                           [  9%]
+tests/test_api.py::test_register_user PASSED                             [ 18%]
+tests/test_api.py::test_login_returns_jwt PASSED                         [ 27%]
+tests/test_api.py::test_create_event_success PASSED                      [ 36%]
+tests/test_api.py::test_create_event_unauthorized PASSED                 [ 45%]
+tests/test_api.py::test_create_event_missing_title PASSED                [ 54%]
+tests/test_api.py::test_get_all_events PASSED                            [ 63%]
+tests/test_api.py::test_get_single_event PASSED                          [ 72%]
+tests/test_api.py::test_get_event_not_found PASSED                       [ 81%]
+tests/test_api.py::test_login_invalid_password PASSED                    [ 90%]
+tests/test_models.py::test_user_password_hashing PASSED                  [100%]
+
+============================== 11 passed in 0.65s ==============================

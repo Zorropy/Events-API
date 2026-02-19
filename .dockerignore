@@ -1,0 +1,12 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.db
+*.sqlite3
+instance/
+.git/
+.gitignore
+.pytest_cache/
+tests/
+test_report.txt

@@ -1,0 +1,54 @@
+name: CI
+
+# Define triggers for the workflow
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    # Use the latest Ubuntu runner provided by GitHub
+    runs-on: ubuntu-latest
+
+    steps:
+      # Download the current code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Build the Docker image using the Dockerfile in the root directory
+      - name: Build Docker image
+        run: docker build -t events-api:latest .
+
+      # Start the container in detached mode and map port 5000
+      - name: Run container
+        run: |
+          docker run -d -p 5000:5000 --name api-container events-api:latest
+          sleep 5
+
+      # Verify if the API health endpoint is reachable
+      - name: Health Check
+        run: curl --fail http://localhost:5000/api/health || exit 1
+
+      # Set up the Python environment for running tests
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Install project dependencies and testing tools
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest requests
+
+      # Execute the test suite against the running container
+      - name: Run tests
+        run: pytest -v
+
+      # Stop and remove the container regardless of the test outcome (Cleanup)
+      - name: Cleanup Container
+        if: always()
+        run: docker rm -f api-container || true

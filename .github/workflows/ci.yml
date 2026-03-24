@@ -69,7 +69,7 @@ jobs:
 
       - name: Automated Smoke Test
         run: |
-          echo "Warte auf Render Deployment (30s)..."
-          sleep 30
-          # Prüft, ob die Live-API auf Render antwortet
-          curl --fail ${{ secrets.RENDER_BASE_URL }}/api/health || exit 1
+            echo "Warte auf Render Deployment (90s)..."
+            sleep 90  # Hier die 30 durch 90 ersetzen
+            # Prüft, ob die Live-API auf Render antwortet
+            curl --fail ${{ secrets.RENDER_BASE_URL }}/api/health || exit 1
